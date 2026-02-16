@@ -1,19 +1,10 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 import sys
 
 # 添加当前目录到Python路径
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-# 确保templates目录存在
-if not os.path.exists('templates'):
-    os.makedirs('templates')
-
-# 将index.html复制到templates目录
-if os.path.exists('index.html'):
-    import shutil
-    shutil.copy('index.html', 'templates/')
 
 from podcast_downloader import PodcastDownloader
 
@@ -25,7 +16,9 @@ downloader = PodcastDownloader()
 @app.route('/')
 def index():
     """提供前端页面"""
-    return render_template('index.html')
+    # 直接返回HTML内容，而不是使用模板
+    with open('index.html', 'r', encoding='utf-8') as f:
+        return f.read()
 
 @app.route('/extract', methods=['POST'])
 def extract_audio():

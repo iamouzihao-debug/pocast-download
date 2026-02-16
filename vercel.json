@@ -7,6 +7,10 @@
   ],
   "routes": [
     {
+      "src": "/extract",
+      "dest": "app.py"
+    },
+    {
       "src": "/(.*)",
       "dest": "app.py"
     }
